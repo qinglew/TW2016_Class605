@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<style type="text/css">
+		body, html {width: 100%;height: 100%;margin:0;font-family:"微软雅黑";}
+		#allmap{width:100%;height:100%;}
+		p{margin-left:5px; font-size:14px;}
+	</style>
+	<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=QSFFTbyrsD7XPGXyHtdxU7soYITy52OM"></script>
+	<title>同文中学2016届学生毕业去向地图</title>
+</head>
+<body>
+	<div id="allmap"></div>
+	<p>点击标注点，可查看由纯文本构成的简单型信息窗口</p>
+</body>
+</html>
+<script type="text/javascript">
+	// 百度地图API功能
+	var map = new BMap.Map("allmap");
+    // setTimeout(function(){
+    //     map.setZoom(14);
+    // }, 2000);
+    map.enableScrollWheelZoom(true); // 开启缩放功能
+    var centerPoint = new BMap.Point(116.001165,29.725602);
+    map.centerAndZoom(centerPoint, 5);
+
+    // 中心点坐标
+    var centerMarker = new BMap.Marker(centerPoint);
+    map.addOverlay(centerMarker);
+    var centerOpts = {
+        width : 200,
+        height: 100,
+        title : "同文中学",
+        enableMessage: true,
+        message: "地图中心，九江市同文中学"
+    }
+    var centerInfoWindow = new BMap.InfoWindow("九江市浔阳区同文中学", centerOpts);
+    centerMarker.addEventListener("click", function(){
+        map.openInfoWindow(centerInfoWindow, centerPoint);
+    });
+
+    persons = [
+        {name: '蔡扬阳', x: 116.332368, y: 39.96356, address: '北京市海定区中关村大街12号'},
+        {name: '曹子昕', x: 115.960372, y: 29.667163, address: '江西省九江市'},
+        {name: '陈绍峰', x: 121.482265, y: 31.234447, address: '上海市'},
+        {name: '陈文鑫', x: 119.980334, y: 31.814814, address: '江苏省常州市'},
+        {name: '陈子超', x: 120.596436, y: 31.305046, address: '江苏省苏州市'},
+        {name: '程子祥', x: 115.987111, y: 29.709583, address: '九江市余工装饰有限公司'},
+        {name: '崔婕', x: 115.987111, y: 29.709583, address: '南京市澳华生物科技有限公司'},
+        {name: '戴心怡', x: 115.823207, y: 28.734118, address: '江西财经大学'},
+        {name: '方正', x: 115.867585, y: 28.78808, address: '南昌理工学院'},
+        {name: '付宇翔', x: 114.298363, y: 30.600456, address: '湖北省武汉市'},
+        {name: '桂浏洋', x: 115.960372, y: 29.667163, address: '参军'},
+        {name: '郭坚', x: 119.910064, y: 28.462294 ,address: '浙江丽水学院'},
+        {name: '韩东材', x: 120.49953, y: 31.338957, address: '中航工业苏州长风航空电子有限公司'},
+        {name: '胡鸿松', x: 115.807631, y: 28.662695, address: '南昌大学 本科在读'},
+        {name: '胡志涛', x: 108.968158, y: 34.238904, address: '西安科技大学'},
+        {name: '江浩', x: 115.839464, y: 28.768205, address: '江西农业大学'},
+        {name: '江丽', x: 114.036652, y: 30.536483, address: '长江大学'},
+        {name: '江淑琴', x: 116.886101, y: 29.337293, address: '九江市上饶市鄱阳县博文中学'},
+        {name: '蒋宗翔', x: 114.065702, y: 22.548456, address: '深圳'},
+        {name: '黎江春', x: 115.89793, y: 28.662074, address: '江西省南昌市'},
+        {name: '李传龙', x: 120.178456, y: 30.248399, address: '浙江省杭州市上城区'},
+        {name: '李俊', x: 106.585459, y: 29.509589, address: '重庆工商大学'},
+        {name: '李美芳', x: 120.21436, y: 30.253082, address: '浙江杭州'},
+        {name: '李昕', x: 115.977332, y: 29.640045, address: '江西九江'},
+        {name: '李欣然', x: -3.454945, y: 55.390816, address: '英国'},
+        {name: '李垚', x: 114.940501, y: 25.865583, address: '赣南医学院'},
+        {name: '刘金雄', x: 113.306914, y: 23.130503, address: '广州市越秀区广铁公司'},
+        {name: '刘琪', x: 113.895598, y: 22.573384, address: '深圳市宝安区'},
+        {name: '刘倩', x: 121.531261, y: 38.888106, address: '大连理工大学'},
+        {name: '刘清', x: 113.413733, y: 23.052375, address: '华南理工大学，读研'},
+        {name: '刘涛', x: 113.44203, y: 23.17454, address: '中建八局一公司'},
+        {name: '罗昕旎', x: 116.002053, y: 29.716359, address: '江西九江'},
+        {name: '梅光阳', x: 120.145455, y: 30.192805, addrss: '杭州联吉技术有限公司（TP-LINK）'},
+        {name: '梅润寒', x: 121.793369, y: 30.875869, address: '上海积塔半导体有限公司'},
+        {name: '聂伟', x: 121.565804, y: 31.198178, address: '中铁十四局'},
+        {name: '潘屿晨', x: 118.076681, y: 28.911597, address: '三清山所在地'},
+        {name: '宋建龙', x: 116.000768, y: 29.612707, address: '江西省九江市庐山区'},
+        {name: '陶瑶瑶', x: 115.797833, y: 29.257412, address: '江西省共青城工商银行'},
+        {name: '万虹', x: 103.77525, y: 1.29595, address: '新加坡国立大学'},
+        {name: '汪蔚洁', x: 116.35146, y: 40.00819, address: '北京林业大学'},
+        {name: '汪紫君', x: 114.392191, y: 30.480725, address: '中南财经政法大学'},
+        {name: '王喆芃', x: 108.239461, y: 22.84363, address: '广西民族大学'},
+        {name: '王紫薇', x: 116.037792, y: 28.686226, address: '江西师范大学'},
+        {name: '魏婷婷', x: 119.982634, y: 31.813341, address: '江苏省常州市'},
+        {name: '徐嘉豪', x: 117.234528, y: 31.826135, address: '安徽省'},
+        {name: '徐世强', x: 116.259049, y: 29.738135, address: '江西省九江市'},
+        {name: '杨璐', x: 121.297045, y: 31.183636, address: '上海国家会计学院'},
+        {name: '易天宇', x: 115.966983, y: 29.663146, address: '江西九江'},
+        {name: '于明辉', x: 113.178258, y: 27.834756, address: '去向未定，本科就读于湖南工业大学'},
+        {name: '余素晨', x: 106.463185, y: 29.562844, address: '去向未定，本科就读于重庆师范大学'},
+        {name: '余英豪', x: 110.343116, y: 25.274862, address: '桂林市啄木鸟医疗器械有限公司'},
+        {name: '查鹏飞', x: 115.908489, y: 29.360072, address: '江西九江'},
+        {name: '查泽峰', x: 117.123524, y: 36.657017, address: '山东济南'},
+        {name: '张盼盼', x: 115.973882, y: 29.707827, address: '备考公务员，江西九江'},
+        {name: '张文龙', x: 115.823207, y: 28.734118, address: '去向未定，本科江西财大'},
+        {name: '张颖洁', x: 115.994004, y: 29.716359, address: '江西九江'},
+        {name: '张宇轩', x: 120.214935, y: 30.258572, address: '浙江杭州'},
+        {name: '周惠洁', x: 115.927314, y: 29.676201, address: '江西九江'},
+        {name: '周珊', x: 115.943811, y: 28.688326, address: '南昌大学，临床医学'}
+    ]
+
+    function doMarker(personInfo) {
+        var person = new BMap.Point(personInfo['x'], personInfo['y']);
+        var marker = new BMap.Marker(person);  // 创建标注
+        map.addOverlay(marker);              // 将标注添加到地图中
+        var opts = {
+        width : 200,     // 信息窗口宽度
+        height: 100,     // 信息窗口高度
+        title : personInfo['name'] , // 信息窗口标题
+        enableMessage:true,//设置允许信息窗发送短息
+        message: personInfo['address']
+        }
+        var infoWindow = new BMap.InfoWindow(personInfo['address'], opts);  // 创建信息窗口对象 
+        marker.addEventListener("click", function(){          
+            map.openInfoWindow(infoWindow, person); //开启信息窗口
+        });
+    }
+
+    for (var i = 0; i < persons.length; i++) {
+        doMarker(persons[i])
+    }
+
+
+</script>
